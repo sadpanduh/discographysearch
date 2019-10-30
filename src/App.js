@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Header from './components/header/header.component';
+import Search from './components/search/search.component';
 
 import './App.css';
 
-function App() {
+const App = () => {
+  const [artist, setArtist] = useState('Kanye West');
+
+
+  const handleChange = (event) => {
+    setArtist(event.target.value);
+  }
+
+  const handleSubmit = (event) => {
+    alert(artist);
+    event.preventDefault();
+  }
+
   return (
     <div className="App">
       <Header />
+      <form onSubmit={handleSubmit}>
+        <Search placeholder={artist} handleChange={handleChange} />
+      </form>
     </div>
-  );
+  )
+
 }
 
 export default App;

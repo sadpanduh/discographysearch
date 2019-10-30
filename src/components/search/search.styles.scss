@@ -1,0 +1,22 @@
+.search{
+    margin-top: 100px;
+
+    .search-greeting{
+        width: 80%;
+        font-size: 2em;
+    }
+
+    .search-box{
+        padding: 0;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 1em;
+        letter-spacing: .05em;
+        transition: .5s;
+        &:focus{
+            outline: none;
+            font-size: 2em;
+        }
+    }
+}
