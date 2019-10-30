@@ -1,0 +1,38 @@
+.header{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ 
+    .title{
+        display: flex;
+        align-items: center;
+        .record-img{
+            width: 80px;
+            height: auto;
+        }
+
+        .title-text{
+            margin-left: 20px;
+            font-size: 2em;
+        }
+    }
+    
+    .links{
+        .linkedin,.github{
+            color: #0d0d00;
+            text-decoration: none;    
+            opacity: 0.5;  
+            transition: 0.4s;         
+            &:hover{
+                opacity: 1;
+            }
+        }
+
+        .linkedin{
+            margin-right: 20px;
+        }
+
+    }
+}
