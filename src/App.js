@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Header from './components/header/header.component';
+import Footer from './components/footer/footer.component';
 import Search from './components/search/search.component';
 
 import './App.css';
@@ -24,6 +25,7 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <Search placeholder={artist} handleChange={handleChange} />
       </form>
+      <Footer />
     </div>
   )
 
