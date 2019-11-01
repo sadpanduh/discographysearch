@@ -1,0 +1,18 @@
+.albumcollection{
+    display: grid;
+    width: 100%;
+    border: 1px solid black;
+    grid-template-columns: 25% 25% 25% 25%;
+    row-gap: 25px;
+    @media screen and (max-width: 1115px){
+        grid-template-columns: 33% 33% 33%;
+    }
+    
+    @media screen and (max-width: 1000px){
+        grid-template-columns: 50% 50%;
+    }
+
+    @media screen and (max-width: 700px){
+        grid-template-columns: 100%;
+    }
+}

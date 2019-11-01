@@ -1,0 +1,22 @@
+.albumcard{
+    display:flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    width: 90%;
+    height: 300px;
+    border-radius: 6px;
+    border: 1px #f5f5ef solid;
+
+    .albumcover{
+        position: relative;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        height: 80%;
+        object-fit: fill;
+    }
+
+    .albuminfo{
+        height: 100%;
+        background-color: white;
+    }
+}
