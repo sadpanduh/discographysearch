@@ -2,7 +2,7 @@
     display:flex;
     box-sizing: border-box;
     flex-direction: column;
-    width: 90%;
+    max-width: 99%;
     height: 300px;
     border-radius: 6px;
     border: 1px #f5f5ef solid;
@@ -16,7 +16,8 @@
     }
 
     .albuminfo{
-        height: 100%;
+        position: relative;
+        text-align: center;
         background-color: white;
     }
 }
