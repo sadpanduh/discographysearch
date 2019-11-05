@@ -21,14 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //enable to use Cross Origin Requests (i.e. communication from front end to server)
 app.use(cors());
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-    });
-}
-
 app.listen(port, error => {
     if (error) throw error;
     console.log('Server running on port ' + port);
