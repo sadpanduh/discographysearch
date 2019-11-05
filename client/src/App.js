@@ -21,9 +21,11 @@ const App = () => {
   useEffect(() => {
     async function fetchArtistData(){
       try{
-        const response = await axios.get(`/search/${search}`);
-        setTotalArtistData(response.data.total)
-        console.log(response);
+        const response = await fetch(`/search/${search}`);
+        const data = await response.json();
+
+        setTotalArtistData(data.total);
+        console.log(data);
       }catch (error){
         console.log("Error occured while fetching initial artist data: ", error);
       }
