@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    
  
     .title{
         display: flex;
@@ -17,9 +17,16 @@
             margin-left: 20px;
             font-size: 2em;
         }
+            
+        @media screen and (max-width: 460px){
+            font-size: 10px;
+        }
     }
     
     .links{
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
         .linkedin,.github{
             color: #0d0d00;
             text-decoration: none;    
@@ -30,9 +37,14 @@
             }
         }
 
-        .linkedin{
-            margin-right: 20px;
+        .github{
+            margin-left: 10px;
+            margin-right: 10%;
         }
 
+        @media screen and (max-width: 460px){
+            align-items: flex-end;
+            font-size: 12px;
+        }
     }
 }
