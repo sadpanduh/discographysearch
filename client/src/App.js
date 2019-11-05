@@ -27,6 +27,9 @@ const App = () => {
           if(response){
             setAlbumIds(parseUniqueAlbumIDs(response.data.data));
           }
+        }).catch(error => {
+          alert('error, check console');
+          console.log("there was an error: ", error);
         })
       }
 
