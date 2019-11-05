@@ -20,8 +20,13 @@ const App = () => {
   //Then use that total to gather all of the info by setting the Limit in the API call to the total number we recieved
   useEffect(() => {
     async function fetchArtistData(){
-      const response = await axios.get(`/search/${search}`);
-      setTotalArtistData(response.data.total)
+      try{
+        const response = await axios.get(`/search/${search}`);
+        setTotalArtistData(response.data.total)
+        console.log(response.data.total);
+      }catch (error){
+        console.log("Error occured while fetching initial artist data: ", error);
+      }
     }
 
     fetchArtistData();
@@ -29,8 +34,12 @@ const App = () => {
 
   useEffect(() => {
     async function fetchAllArtistInfo() {
-      const response = await axios.get(`/search/${search}/${totalArtistData}`);
-      setAlbumIds(parseUniqueAlbumIDs(response.data.data));
+      try{
+        const response = await axios.get(`/search/${search}/${totalArtistData}`);
+        setAlbumIds(parseUniqueAlbumIDs(response.data.data));
+      }catch (error){
+        console.log("Error occured while fetching collection of artist data: ", error);
+      }
     }
 
     fetchAllArtistInfo();
