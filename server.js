@@ -33,6 +33,7 @@ app.listen(port, error => {
 });
 
 app.get("/search/:artist", (req, res) =>{
+    console.log("hitting search artist api");
     let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json`;
 
     request(q, function (error, response, body) {
@@ -45,6 +46,7 @@ app.get("/search/:artist", (req, res) =>{
 });
 
 app.get("/search/:artist/:limit", (req,res) =>{
+    console.log("hitting search artist with limit api");
     let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json&limit=${req.params.limit}`;
 
     request(q, function (error, response, body) {
