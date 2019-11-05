@@ -21,21 +21,15 @@ const App = () => {
     axios.get(`/search/${search}`
     ).then(response => {
       //getAllArtistInfo(response.data.total);
-      if(response){
-        axios.get(`/search/${search}/${response.data.total}`
-        ).then(response =>{
-          console.log(response);
-          console.log(response.data);
-          console.log(response.data.data);
-          if(response){
-            setAlbumIds(parseUniqueAlbumIDs(response.data.data));
-          }
-        }).catch(error => {
-          alert('error, check console');
-          console.log("there was an error: ", error);
-        })
-      }
+      console.log("initial search response", response);
+      console.log("initial search response.data: ", response.data);
 
+      axios.get(`/search/${search}/${response.data.total}`
+      ).then(response =>{
+        console.log("initial search with total response", response);
+        console.log("initial search with total response.data: ", response.data);  
+        setAlbumIds(parseUniqueAlbumIDs(response.data.data));
+      })
 
     }).catch(error => {
       console.log('There was an error: ', error);
@@ -54,10 +48,9 @@ const App = () => {
 
   //Compile only the unique Album Ids from all the tracks recieved from the API call
   function parseUniqueAlbumIDs(data) {
-    let d = data;
     let albumIDSet = new Set();
 
-    for (let i = 0; i < d.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       let artist = data[i].artist.name.toUpperCase();
       let albumId = data[i].album.id;
 
