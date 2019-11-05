@@ -13,38 +13,28 @@ const App = () => {
   const [search, setSearch] = useState('Kanye West');
   const [albumIds, setAlbumIds] = useState(new Set());
 
+  const [totalArtistData, setTotalArtistData] = useState();
 
   //Get Information about the artist
-  //More specifically the total number of tracks, since the Deeer API only returns 25 by default
+  //More specifically the total number of tracks, since the Deezer API only returns 25 by default
   //Then use that total to gather all of the info by setting the Limit in the API call to the total number we recieved
   useEffect(() => {
-    axios.get(`/search/${search}`
-    ).then(response => {
-      //getAllArtistInfo(response.data.total);
-      console.log("initial search response", response);
-      console.log("initial search response.data: ", response.data);
+    async function fetchArtistData(){
+      const response = await axios.get(`/search/${search}`);
+      setTotalArtistData(response.data.total)
+    }
 
-      axios.get(`/search/${search}/${response.data.total}`
-      ).then(response =>{
-        console.log("initial search with total response", response);
-        console.log("initial search with total response.data: ", response.data);  
-        setAlbumIds(parseUniqueAlbumIDs(response.data.data));
-      })
-
-    }).catch(error => {
-      console.log('There was an error: ', error);
-      alert('error, check console');
-    });
+    fetchArtistData();
   }, [search]);
 
-  // async function getAllArtistInfo(total) {
-  //   try {
-  //     const response = await axios.get(`/search/${search}/${total}`);
-  //     setAlbumIds(parseUniqueAlbumIDs(response.data.data));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  useEffect(() => {
+    async function fetchAllArtistInfo() {
+      const response = await axios.get(`/search/${search}/${totalArtistData}`);
+      setAlbumIds(parseUniqueAlbumIDs(response.data.data));
+    }
+
+    fetchAllArtistInfo();
+  }, [totalArtistData])
 
   //Compile only the unique Album Ids from all the tracks recieved from the API call
   function parseUniqueAlbumIDs(data) {

@@ -37,7 +37,6 @@ app.listen(port, error => {
 });
 
 app.get("/search/:artist", (req, res) =>{
-    //var q = `https://api.deezer.com/search/artist?q=${req.params.artist}&limit=1&output=json`;
     let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json`;
 
     request(q, function (error, response, body) {

@@ -27,7 +27,7 @@ const AlbumCollection = ({ albumIdCollection }) => {
                 console.log('There was an error: ', error);
             });
         })  
-    }, [albumIdCollection, setCollection])
+    }, [albumIdCollection])
 
     return (
         <div className='albumcollection'>
