@@ -36,7 +36,8 @@ app.listen(port, error => {
 
 app.get("/search/:artist", (req, res) =>{
     //var q = `https://api.deezer.com/search/artist?q=${req.params.artist}&limit=1&output=json`;
-    var q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json`;
+    let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json`;
+
     request(q, function (error, response, body) {
         if(response.statusCode === 200){
             res.status(200).send(body);
@@ -45,3 +46,28 @@ app.get("/search/:artist", (req, res) =>{
         }
     });
 });
+
+app.get("/search/:artist/:limit", (req,res) =>{
+    let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json&limit=${req.params.limit}`;
+
+    request(q, function (error, response, body) {
+        if(response.statusCode === 200){
+            res.status(200).send(body);
+        }else{
+            res.status(500).send({error: error});
+        }
+    });
+});
+
+app.get("/album/:albumId", (req, res) => {
+    var q = `https://api.deezer.com/album/${req.params.albumId}&output=json`;
+
+    request(q, function(error, response, body){
+        if(response.statusCode === 200){
+            res.status(200).send(body);
+        }else{
+            res.status(500).send({error: error});
+        }
+    });
+
+})
