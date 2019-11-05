@@ -2,10 +2,9 @@
     display: grid;
     width: 99%;
     grid-template-columns: 25% 25% 25% 25%;
-    row-gap: 25px;
     column-gap: .5%;
 
-    @media screen and (max-width: 1115px){
+    @media screen and (max-width: 1360px){
         grid-template-columns: 33% 33% 33%;
     }
     
@@ -13,7 +12,7 @@
         grid-template-columns: 50% 50%;
     }
 
-    @media screen and (max-width: 460px){
+    @media screen and (max-width: 630px){
         grid-template-columns: 100%;
     }
 }

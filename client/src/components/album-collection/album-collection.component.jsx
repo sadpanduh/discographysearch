@@ -18,7 +18,7 @@ const AlbumCollection = ({ albumIdCollection }) => {
                 let album = response.data;
                 setCollection(collection => [...collection, {
                     id: album.id,
-                    img: album.cover_medium,
+                    img: album.cover_big,
                     title: album.title,
                     date: album.release_date,
                     type: album.record_type

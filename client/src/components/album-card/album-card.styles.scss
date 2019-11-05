@@ -3,21 +3,21 @@
     box-sizing: border-box;
     flex-direction: column;
     max-width: 99%;
-    height: 300px;
+    height: 80%;
     border-radius: 6px;
     border: 1px #f5f5ef solid;
+    background-color: white;
 
     .albumcover{
         position: relative;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         height: 80%;
-        object-fit: fill;
+        overflow: hidden;
     }
 
     .albuminfo{
         position: relative;
         text-align: center;
-        background-color: white;
     }
 }
