@@ -23,7 +23,7 @@ const App = () => {
       try{
         const response = await axios.get(`/search/${search}`);
         setTotalArtistData(response.data.total)
-        console.log(response.data.total);
+        console.log(response);
       }catch (error){
         console.log("Error occured while fetching initial artist data: ", error);
       }
