@@ -17,16 +17,6 @@ app.use(bodyParser.json());
 //makes sure the url strings are getting in and passed formatted correctly
 app.use(bodyParser.urlencoded({ extended: true }));
 
-if (process.env.NODE_ENV === 'production') {
-    // Serve any static files
-    app.use(express.static(path.join(__dirname, 'client/build')));
-
-    // Handle React routing, Anything that doesn't match the above, send back index.html
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-    });
-}
-
 app.listen(port, error => {
     if (error) throw error;
     console.log('Server running on port ' + port);
@@ -70,3 +60,15 @@ app.get("/album/:albumId", (req, res) => {
     });
 
 })
+
+if (process.env.NODE_ENV === 'production') {
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    // Handle React routing, Anything that doesn't match the above, send back index.html
+    // The "catchall" handler: for any request that doesn't
+    // match one above, send back React's index.html file.
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+    });
+}

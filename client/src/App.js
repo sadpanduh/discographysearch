@@ -21,11 +21,9 @@ const App = () => {
   useEffect(() => {
     async function fetchArtistData(){
       try{
-        const response = await fetch(`/search/${search}`);
-        const data = await response.json();
-        console.log(data);
-        setTotalArtistData(data.total);
-
+        const response = await axios.get(`/search/${search}`);
+        console.log(response);
+        setTotalArtistData(response.data.total)
       }catch (error){
         console.log("Error occured while fetching initial artist data: ", error);
       }
@@ -68,8 +66,8 @@ const App = () => {
   }
 
   const handleSubmit = (event) => {
-    setSearch(artist);
     event.preventDefault();
+    setSearch(artist);
   }
 
   return (
