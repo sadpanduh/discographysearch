@@ -24,6 +24,9 @@ const App = () => {
       if(response){
         axios.get(`/search/${search}/${response.data.total}`
         ).then(response =>{
+          console.log(response);
+          console.log(response.data);
+          console.log(response.data.data);
           if(response){
             setAlbumIds(parseUniqueAlbumIDs(response.data.data));
           }
@@ -51,9 +54,10 @@ const App = () => {
 
   //Compile only the unique Album Ids from all the tracks recieved from the API call
   function parseUniqueAlbumIDs(data) {
+    let d = data;
     let albumIDSet = new Set();
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < d.length; i++) {
       let artist = data[i].artist.name.toUpperCase();
       let albumId = data[i].album.id;
 
