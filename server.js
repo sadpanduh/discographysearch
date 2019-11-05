@@ -10,12 +10,12 @@ const app = express();
 //port will be set by the host (heroku) and port 5000 for localhost
 const port = process.env.PORT || 5000;
 
+//enable to use Cross Origin Requests (i.e. communication from front end to server)
+app.use(cors());
 //enable app to use bodyparser and convert the requests body to JSON
 app.use(bodyParser.json());
 //makes sure the url strings are getting in and passed formatted correctly
 app.use(bodyParser.urlencoded({ extended: true }));
-//enable to use Cross Origin Requests (i.e. communication from front end to server)
-app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
