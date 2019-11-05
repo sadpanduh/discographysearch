@@ -23,9 +23,9 @@ const App = () => {
       try{
         const response = await fetch(`/search/${search}`);
         const data = await response.json();
-
-        setTotalArtistData(data.total);
         console.log(data);
+        setTotalArtistData(data.total);
+
       }catch (error){
         console.log("Error occured while fetching initial artist data: ", error);
       }
