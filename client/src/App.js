@@ -20,21 +20,27 @@ const App = () => {
   useEffect(() => {
     axios.get(`/search/${search}`
     ).then(response => {
-      getAllArtistInfo(response.data.total);
+      //getAllArtistInfo(response.data.total);
+
+      axios.get(`/search/${search}/${response.data.total}`
+      ).then(response =>{
+        setAlbumIds(parseUniqueAlbumIDs(response.data.data));
+      })
+
     }).catch(error => {
       console.log('There was an error: ', error);
       alert('error, check console');
     });
   }, [search]);
 
-  async function getAllArtistInfo(total) {
-    try {
-      const response = await axios.get(`/search/${search}/${total}`);
-      setAlbumIds(parseUniqueAlbumIDs(response.data.data));
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function getAllArtistInfo(total) {
+  //   try {
+  //     const response = await axios.get(`/search/${search}/${total}`);
+  //     setAlbumIds(parseUniqueAlbumIDs(response.data.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //Compile only the unique Album Ids from all the tracks recieved from the API call
   function parseUniqueAlbumIDs(data) {
