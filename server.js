@@ -22,40 +22,41 @@ app.listen(port, error => {
     console.log('Server running on port ' + port);
 });
 
-app.get("/search/:artist", (req, res) =>{
+app.get("/search/artist/:artist", (req, res) => {
     console.log("hitting search artist api");
-    let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json`;
+    let uri = `https://api.deezer.com/search/artist?q=artist:"${req.params.artist}"&output=json`;
 
-    request(q, function (error, response, body) {
-        if(response.statusCode === 200){
+    request(uri, function (error, response, body) {
+        if (response.statusCode === 200) {
             res.status(200).send(body);
-        }else{
-            res.status(500).send({error: error});
+        } else {
+            res.status(500).send({ error: error });
         }
     });
 });
 
-app.get("/search/:artist/:limit", (req,res) =>{
-    console.log("hitting search artist with limit api");
-    let q = `https://api.deezer.com/search?q=artist:"${req.params.artist}"&output=json&limit=${req.params.limit}`;
+app.get("/artist/:artistId/albums/index/:index", (req, res) => {
+    console.log("hitting api next index uri: ", req.params.index);
+    let uri = `https://api.deezer.com/artist/${req.params.artistId}/albums&index=${req.params.index}&output=json`;
 
-    request(q, function (error, response, body) {
-        if(response.statusCode === 200){
+
+    request(uri, function (error, response, body) {
+        if (response.statusCode === 200) {
             res.status(200).send(body);
-        }else{
-            res.status(500).send({error: error});
+        } else {
+            res.status(500).send({ error: error });
         }
     });
 });
 
 app.get("/album/:albumId", (req, res) => {
-    var q = `https://api.deezer.com/album/${req.params.albumId}&output=json`;
+    var uri = `https://api.deezer.com/album/${req.params.albumId}&output=json`;
 
-    request(q, function(error, response, body){
-        if(response.statusCode === 200){
+    request(uri, function (error, response, body) {
+        if (response.statusCode === 200) {
             res.status(200).send(body);
-        }else{
-            res.status(500).send({error: error});
+        } else {
+            res.status(500).send({ error: error });
         }
     });
 

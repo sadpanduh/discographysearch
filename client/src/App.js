@@ -13,53 +13,55 @@ const App = () => {
   const [search, setSearch] = useState('Kanye West');
   const [albumIds, setAlbumIds] = useState(new Set());
 
-  const [totalArtistData, setTotalArtistData] = useState();
-
   //Get Information about the artist
-  //More specifically the total number of tracks, since the Deezer API only returns 25 by default
-  //Then use that total to gather all of the info by setting the Limit in the API call to the total number we recieved
+  //First search by the artist name and retrieve the first artist id from the first returned
+  //Using the artist id, retrieve all the album ids and remove any duplicate ids
   useEffect(() => {
-    async function fetchArtistData(){
-      try{
-        const response = await axios.get(`/search/${search}`);
-        console.log(response);
-        setTotalArtistData(response.data.total)
-      }catch (error){
+    async function fetchArtistId() {
+      axios.get(`/search/artist/${search}`
+      ).then(response => {
+
+        if (response.data.total > 0) {
+          let artistId = response.data.data[0].id;
+          let numOfAlbums = response.data.data[0].nb_album;
+          fetchAllArtistInfo(artistId, numOfAlbums);
+        } else {
+          //add something to do when the search result doesnt return anything back
+        }
+
+      }).catch(error => {
         console.log("Error occured while fetching initial artist data: ", error);
-      }
+      });
     }
 
-    fetchArtistData();
+    async function fetchAllArtistInfo(artistId, numOfAlbums) {
+      let arr = [];
+
+      for (let i = 0; i <= numOfAlbums; i += 25) {
+        await axios.get(`/artist/${artistId}/albums/index/${i}`
+        ).then(response => {
+          arr.push.apply(arr, response.data.data);
+        }).catch(error => {
+          console.log("Error occured while fetching collection of artist data: ", error);
+        });
+      }
+
+      parseAndSetUniqueAlbumIDs(arr);
+    }
+
+    //Compile only the unique Album Ids from all the tracks recieved from the API call and set albumIds state
+    function parseAndSetUniqueAlbumIDs(data) {
+      let albumIDSet = new Set();
+
+      for (let i = 0; i < data.length; i++) {
+        albumIDSet.add(data[i].id);
+      }
+
+      setAlbumIds(albumIDSet);
+    }
+
+    fetchArtistId();
   }, [search]);
-
-  useEffect(() => {
-    async function fetchAllArtistInfo() {
-      try{
-        const response = await axios.get(`/search/${search}/${totalArtistData}`);
-        setAlbumIds(parseUniqueAlbumIDs(response.data.data));
-      }catch (error){
-        console.log("Error occured while fetching collection of artist data: ", error);
-      }
-    }
-
-    fetchAllArtistInfo();
-  }, [totalArtistData])
-
-  //Compile only the unique Album Ids from all the tracks recieved from the API call
-  function parseUniqueAlbumIDs(data) {
-    let albumIDSet = new Set();
-
-    for (let i = 0; i < data.length; i++) {
-      let artist = data[i].artist.name.toUpperCase();
-      let albumId = data[i].album.id;
-
-      if (artist === search.toUpperCase()) {
-        albumIDSet.add(albumId);
-      }
-    }
-
-    return albumIDSet;
-  }
 
   const handleChange = (event) => {
     setArtist(event.target.value);
@@ -76,7 +78,7 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <Search placeholder={artist} handleChange={handleChange} />
       </form>
-      <AlbumCollection albumIdCollection={albumIds} />
+      <AlbumCollection albumIdCollection={albumIds}/>
       <Footer />
     </div>
   )
