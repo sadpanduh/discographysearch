@@ -4,11 +4,11 @@ import './album-card.styles.scss';
 
 const AlbumCard = ({albumcover, albumtype, albumtitle, albumdate}) =>(
     <div className='albumcard'>
-        <img className='albumcover' src={albumcover} alt=""/>
+        <img className='albumcover' src={albumcover} alt={albumcover}/>
         <div className='albuminfo'>
             <div className='albumtitle'>{albumtitle}</div>
             <div className='albumtype'>Type: {albumtype}</div>
-            <div className='albumdate'>Released:{albumdate}</div>
+            <div className='albumdate'>Released: {albumdate}</div>
         </div>
     </div>
 )

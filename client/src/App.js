@@ -37,6 +37,7 @@ const App = () => {
     async function fetchAllArtistInfo(artistId, numOfAlbums) {
       let arr = [];
 
+      //looks like deezer goes in increments of 25 per returned by default 
       for (let i = 0; i <= numOfAlbums; i += 25) {
         await axios.get(`/artist/${artistId}/albums/index/${i}`
         ).then(response => {
@@ -52,7 +53,8 @@ const App = () => {
     //Compile only the unique Album Ids from all the tracks recieved from the API call and set albumIds state
     function parseAndSetUniqueAlbumIDs(data) {
       let albumIDSet = new Set();
-
+      
+      console.log("parsing and setting set")
       for (let i = 0; i < data.length; i++) {
         albumIDSet.add(data[i].id);
       }
