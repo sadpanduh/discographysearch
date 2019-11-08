@@ -35,10 +35,9 @@ app.get("/search/artist/:artist", (req, res) => {
     });
 });
 
-app.get("/artist/:artistId/albums/index/:index", (req, res) => {
-    console.log("hitting api next index uri: ", req.params.index);
-    let uri = `https://api.deezer.com/artist/${req.params.artistId}/albums&index=${req.params.index}&output=json`;
-
+app.get("/artist/:artistId/albums?", (req, res) => {
+    console.log("hitting api next index uri: ", req.query.index);
+    let uri = `https://api.deezer.com/artist/${req.params.artistId}/albums&index=${req.query.index}&output=json`;
 
     request(uri, function (error, response, body) {
         if (response.statusCode === 200) {

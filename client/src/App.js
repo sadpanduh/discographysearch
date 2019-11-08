@@ -9,15 +9,17 @@ import AlbumCollection from './components/album-collection/album-collection.comp
 import './App.css';
 
 const App = () => {
-  const [artist, setArtist] = useState('Kanye West');
-  const [search, setSearch] = useState('Kanye West');
+  const [artist, setArtist] = useState('Anamanaguchi');
+  const [search, setSearch] = useState('Anamanaguchi');
   const [albumIds, setAlbumIds] = useState(new Set());
+
+  const [foundArtist, setFoundArtist] = useState(true);
 
   //Get Information about the artist
   //First search by the artist name and retrieve the first artist id from the first returned
   //Using the artist id, retrieve all the album ids and remove any duplicate ids
   useEffect(() => {
-    async function fetchArtistId() {
+    function fetchArtistId() {
       axios.get(`/search/artist/${search}`
       ).then(response => {
 
@@ -27,6 +29,7 @@ const App = () => {
           fetchAllArtistInfo(artistId, numOfAlbums);
         } else {
           //add something to do when the search result doesnt return anything back
+          setFoundArtist(false);
         }
 
       }).catch(error => {
@@ -39,7 +42,7 @@ const App = () => {
 
       //looks like deezer goes in increments of 25 per returned by default 
       for (let i = 0; i <= numOfAlbums; i += 25) {
-        await axios.get(`/artist/${artistId}/albums/index/${i}`
+        await axios.get(`/artist/${artistId}/albums?index=${i}`
         ).then(response => {
           arr.push.apply(arr, response.data.data);
         }).catch(error => {
@@ -64,13 +67,15 @@ const App = () => {
 
     fetchArtistId();
   }, [search]);
-
+  
   const handleChange = (event) => {
     setArtist(event.target.value);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setFoundArtist(true);
+    setAlbumIds(new Set());
     setSearch(artist);
   }
 
@@ -80,7 +85,12 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <Search placeholder={artist} handleChange={handleChange} />
       </form>
-      <AlbumCollection albumIdCollection={albumIds}/>
+        {
+          foundArtist ? (
+            <AlbumCollection albumIdCollection={albumIds}/>
+          ) : (
+            <h3>"{search}"" was not found! Please check the spelling or try a new artist</h3>
+        )}
       <Footer />
     </div>
   )
