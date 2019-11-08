@@ -1,3 +1,14 @@
+Webapp that utilizes the DeezerApi to search for the albums of a music artist. Uses Axios to communicate to the backend server.
+
+TO RUN BOTH SERVER AND CLIENT SIDE ON LOCAL USE:
+'npm run dev'
+
+App is currently hosted on: https://discographysearch-reactapp.herokuapp.com/
+
+Server: 
+Created using Express. 
+
+Client Side:
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
